@@ -818,19 +818,95 @@ footer p{font-size:.8rem;color:rgba(255,255,255,.3);letter-spacing:.1em}
 @media(max-width:768px){
   .nav-links,.nav-cta{display:none}
   .nav-hamburger{display:flex}
-  /* Hero móvil limpio */
-  #hero{justify-content:center;align-items:center;padding-bottom:22vh;}
+
+  /* ── HERO MÓVIL PRO ── */
+  /* 1. Ocultar partículas de colores — quedan amateur en móvil */
+  #particle-canvas{display:none;}
+
+  /* 2. Hero: centrado ligeramente hacia arriba */
+  #hero{
+    justify-content:center;align-items:center;
+    padding-bottom:28vh;
+  }
+
+  /* 3. Overlay más cinematográfico: fade superior + fade inferior fuerte */
+  .hero-overlay{
+    background:
+      linear-gradient(to bottom,
+        rgba(5,5,7,.55) 0%,
+        transparent 18%,
+        transparent 52%,
+        rgba(5,5,7,.92) 100%),
+      radial-gradient(ellipse 120% 70% at 50% 42%,
+        transparent 20%,
+        rgba(5,5,7,.35) 70%,
+        rgba(5,5,7,.75) 100%);
+  }
+
+  /* 4. Contenido centrado */
   .hero-content{
     text-align:center;
-    padding:0 24px;
+    padding:0 20px;
     width:100%;
     display:flex;flex-direction:column;align-items:center;
   }
-  .hero-title{font-size:clamp(4rem,18vw,7rem);line-height:.88;}
-  .hero-sub{font-size:clamp(1.2rem,5vw,1.8rem);}
-  .hero-btns{flex-direction:column;align-items:center;gap:.8rem;}
-  .btn-primary,.btn-secondary{width:100%;max-width:280px;text-align:center;}
-  /* Ticker inferior ocupa más espacio en móvil — se puede ocultar */
+
+  /* 5. Eyebrow → pill badge con efecto glass */
+  .hero-eyebrow{
+    display:inline-flex;align-items:center;gap:.5rem;
+    font-size:.58rem;letter-spacing:.22em;
+    background:rgba(255,0,110,.1);
+    border:1px solid rgba(255,0,110,.4);
+    border-radius:50px;
+    padding:.42rem 1.2rem;
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    margin-bottom:1.1rem;
+    box-shadow:0 0 18px rgba(255,0,110,.15);
+  }
+
+  /* 6. Título más grande y dramático */
+  .hero-title{
+    font-size:clamp(5rem,22vw,7.5rem);
+    line-height:.85;
+    letter-spacing:.06em;
+    filter:drop-shadow(0 0 35px rgba(255,0,110,.65));
+    margin-bottom:.1rem;
+  }
+
+  /* 7. Separador neón entre título y tagline */
+  .hero-neon-line{display:block;}
+
+  /* 8. Tagline más elegante */
+  .hero-sub{
+    font-size:clamp(1.3rem,5.5vw,1.9rem);
+    letter-spacing:.38em;
+    color:rgba(255,255,255,.92);
+    margin-top:.5rem;
+    text-shadow:0 0 20px rgba(255,255,255,.25);
+  }
+
+  /* 9. Botones más impactantes */
+  .hero-btns{
+    flex-direction:column;align-items:center;
+    gap:.9rem;
+    margin-top:2rem;
+  }
+  .btn-primary{
+    width:100%;max-width:300px;text-align:center;
+    font-size:.88rem;letter-spacing:.18em;
+    padding:1.1rem 2rem;
+    box-shadow:0 0 40px rgba(255,0,110,.55), 0 0 90px rgba(255,0,110,.18);
+  }
+  .btn-secondary{
+    width:100%;max-width:300px;text-align:center;
+    font-size:.8rem;letter-spacing:.15em;
+    padding:.9rem 2rem;
+    border-color:rgba(255,255,255,.2);
+    color:rgba(255,255,255,.75);
+  }
+
+  /* 10. Resto */
   .flag-ticker-bottom{display:none;}
   .cards-grid{grid-template-columns:1fr}
   .gallery-item{width:220px;height:300px}
@@ -838,9 +914,19 @@ footer p{font-size:.8rem;color:rgba(255,255,255,.3);letter-spacing:.1em}
   .vibe-stats{grid-template-columns:1fr 1fr}
 }
 @media(max-width:480px){
-  .hero-title{font-size:4.5rem}
+  .hero-title{font-size:clamp(4.5rem,21vw,6.5rem)}
   .stat-number{font-size:2rem}
   .story-number{font-size:5rem}
+}
+
+/* Separador neón hero — oculto en desktop, visible en móvil */
+.hero-neon-line{
+  display:none;
+  width:55px;height:1.5px;
+  background:linear-gradient(90deg,transparent,var(--neon-pink),var(--neon-purple),transparent);
+  border-radius:2px;
+  margin:.65rem auto 0;
+  box-shadow:0 0 10px rgba(255,0,110,.6);
 }
 /* ── Lamborghini starfield canvas ── */
 #star-canvas{
@@ -952,6 +1038,7 @@ footer > *{
   <div class="hero-content">
     <p class="hero-eyebrow"><img src="https://flagcdn.com/24x18/do.png" alt="RD" style="height:14px;width:auto;vertical-align:middle;margin-right:8px;border-radius:2px;box-shadow:0 0 6px rgba(255,20,147,.5)"> República Dominicana te da la bienvenida a <img src="https://flagcdn.com/24x18/do.png" alt="RD" style="height:14px;width:auto;vertical-align:middle;margin-left:8px;border-radius:2px;box-shadow:0 0 6px rgba(255,20,147,.5)"></p>
     <h1 class="hero-title">LA BICHOTA</h1>
+    <div class="hero-neon-line"></div>
     <p class="hero-sub">Bar · Terraza</p>
     <div class="hero-btns">
       <button class="btn-primary" onclick="document.getElementById('reservas').scrollIntoView({behavior:'smooth'})">Reserva tu noche</button>
