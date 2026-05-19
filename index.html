@@ -138,6 +138,7 @@ nav::after{
   pointer-events:none;
   mix-blend-mode:screen;
   filter:drop-shadow(0 0 12px rgba(0,0,0,.8));
+  transition:filter .5s ease;
   transform-origin:bottom left;
   animation:girl-entrance .9s cubic-bezier(.22,1,.36,1) both;
   -webkit-mask-image:
@@ -156,6 +157,13 @@ nav::after{
 @keyframes girl-entrance{
   from{opacity:0;transform:translateX(-40px) scale(.97);}
   to{opacity:1;transform:translateX(0) scale(1);}
+}
+.banner-girl.neon-glow{
+  filter:
+    drop-shadow(0 0 12px rgba(0,0,0,.8))
+    drop-shadow(0 0 18px rgba(255,0,110,.55))
+    drop-shadow(0 0 45px rgba(255,0,110,.28))
+    drop-shadow(0 0 80px rgba(131,56,236,.18));
 }
 @media(max-width:900px){.banner-girl{display:none;}}
 .hero-eyebrow{
@@ -1910,6 +1918,26 @@ function closeMobile(){
 }
 window.toggleMobile=toggleMobile;
 window.closeMobile=closeMobile;
+
+// ── Neon glow banner girl on hover ──
+(function(){
+  const girl = document.querySelector('.banner-girl');
+  if(!girl) return;
+  document.addEventListener('mousemove', function(e){
+    const rect = girl.getBoundingClientRect();
+    const cx = rect.left + rect.width  * 0.38; // centro visual de la chica
+    const cy = rect.top  + rect.height * 0.42;
+    const dx = e.clientX - cx;
+    const dy = e.clientY - cy;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+    const threshold = Math.max(rect.width, rect.height) * 0.55;
+    if(dist < threshold){
+      girl.classList.add('neon-glow');
+    } else {
+      girl.classList.remove('neon-glow');
+    }
+  });
+})();
 
 // ── Lamborghini starfield ──
 (function(){
