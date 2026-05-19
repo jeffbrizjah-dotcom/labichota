@@ -822,7 +822,47 @@ footer p{font-size:.8rem;color:rgba(255,255,255,.3);letter-spacing:.1em}
   .story-content{max-width:100%;text-align:center}
   .story-divider{margin:0 auto 1.5rem}
 }
-@media(max-width:900px){#drink-gallery{display:none}}
+@media(max-width:900px){
+  #drink-gallery{
+    position:relative;
+    right:auto;top:auto;
+    transform:none;
+    flex-direction:row;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    width:100%;
+    margin-top:2.2rem;
+    perspective:none;
+    z-index:10;
+  }
+  .drink-track{
+    width:auto;height:auto;
+    display:flex;flex-direction:row;gap:10px;
+    transform-style:flat;
+    overflow-x:auto;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+    padding:0 16px;
+  }
+  .drink-track::-webkit-scrollbar{display:none;}
+  .drink-card{
+    position:relative;
+    flex-shrink:0;
+    width:90px;height:120px;
+    top:auto !important;
+    transform:none !important;
+    opacity:1 !important;
+    filter:brightness(1) saturate(1.1) !important;
+    box-shadow:0 4px 18px rgba(0,0,0,.5);
+    border:1px solid rgba(255,0,110,.2);
+  }
+  .drink-card.dc-active{
+    border-color:rgba(255,0,110,.55);
+    box-shadow:0 0 18px rgba(255,0,110,.35);
+  }
+  .drink-dots,.drink-label{display:none;}
+}
 @media(max-width:768px){
   .nav-links,.nav-cta{display:none}
   .nav-hamburger{display:flex}
@@ -1550,7 +1590,14 @@ footer > *{
   const n = cards.length;
   let cur = 0;
 
+  function isMobile(){ return window.innerWidth <= 900; }
+
   function update(){
+    // En móvil todas las cards visibles — no aplicar clases de posición
+    if(isMobile()){
+      cards.forEach(c=>{ c.className='drink-card'; });
+      return;
+    }
     cards.forEach((c,i)=>{
       c.className = 'drink-card';
       const d = (i - cur + n) % n;
@@ -1563,7 +1610,11 @@ footer > *{
   }
 
   update();
-  setInterval(()=>{ cur=(cur+1)%n; update(); }, 2600);
+  setInterval(()=>{
+    if(isMobile()) return;
+    cur=(cur+1)%n; update();
+  }, 2600);
+  window.addEventListener('resize', update);
 })();
 
 // ── PARTICLE PHYSICS CANVAS ──
